@@ -1,9 +1,16 @@
 export type Product = {
-  id: number;
-  title: string;
+  id: string;
+  name: string;
   description: string;
   price: number;
-  img: string;
-  slug: string;
-  categories: string[];
+  img?: string | null;
+  createdBy: Date;
+  updatedBy: Date;
+};
+
+export type Category = {
+  id: string;
+  name: string;
+  createdBy: Date;
+  updatedBy: Date;
 };

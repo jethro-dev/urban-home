@@ -8,7 +8,7 @@ type Props = {};
 
 const Header = (props: Props) => {
   return (
-    <header className="bg-black sticky top-0 z-[9999]">
+    <header className="bg-black sticky top-0 z-50">
       {/* wrapper */}
       <div className="mx-auto max-w-8xl px-6">
         {/* upper */}

@@ -1,6 +1,6 @@
 import React from "react";
-import CartDetail from "./CartDetail";
-import OrderSummary from "./OrderSummary";
+import CartDetail from "../../components/CartDetail";
+import OrderSummary from "@components/OrderSummary";
 
 type Props = {};
 
