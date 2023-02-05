@@ -1,44 +1,51 @@
+import Image from "next/image";
+import Link from "next/link";
 import React from "react";
+import { Product } from "typings";
 import ProductList from "./ProductList";
 
-type Props = {};
+type Props = {
+  product: Product;
+};
 
-const ProductsPage = (props: Props) => {
+const ProductCard = ({ product }: Props) => {
   return (
-    <div className="mx-auto max-w-7xl px-6 w-full">
-      <div className="grid items-start grid-cols-1 lg:grid-cols-12 gap-4 mt-3 mb-20 relative">
-        {/* left */}
-        <div className="col-span-8 lg:col-span-2 order-1 lg:order-none sticky top-[96px]">
-          <div className="origin-top-left absolute lg:relative left-0 mt-2 w-full rounded-md shadow-lg lg:shadow-none z-10 mb-10 lg:block hidden ring-2">
-            <h3>All Categories</h3>
-            <span>New Arrivals</span>
-            <span>Featured</span>
-          </div>
-
-          <div>
-            <h3>All Designers</h3>
-            <span>New Arrivals</span>
-            <span>Featured</span>
-          </div>
+    <div className="rounded overflow-hidden ring-1 ring-neutral-600 shadow-md hover:ring-neutral-500 transition-all group relative">
+      <div className="grid place-items-center">
+        <Link href={`/products/${product.id}`}>
+          <Image
+            src={`${product.img}`}
+            alt={product.name}
+            width={300}
+            height={300}
+            className="p-16"
+          />
+        </Link>
+      </div>
+      <hr className="border-1 border-neutral-600 mx-4" />
+      <div className="flex items-center justify-between px-4 h-20">
+        <div className="flex flex-col">
+          <span className="font-semibold">{product.name}</span>
+          {/* <span className="font-light text-sm">{product.categories[0]}</span> */}
         </div>
-
-        {/* middle */}
-        <div className="col-span-8 order-3 lg:order-none">
-          {/* @ts-expect-error Server Component */}
-          <ProductList />
+        <div>
+          <span>${product.price}</span>
         </div>
-
-        {/* right */}
-        <div className="col-span-8 lg:col-span-2 order-2 lg:order-none sticky top-[96px]">
-          <h3>Relevance</h3>
-          <span>Trending</span>
-          <span>Latest Arrivals</span>
-          <span>Price: Low to High</span>
-          <span>Price: High to Low</span>
-        </div>
+      </div>
+      {/* overlay */}
+      <div className="absolute bottom-0 bg-neutral-600 w-full flex invisible group-hover:visible items-center justify-between px-4 h-[84px] gap-2 translate-y-[200px] group-hover:translate-y-0 transition-all">
+        <button className="bg-violet-600 hover:bg-violet-700 px-4 py-4 rounded flex-[3] transition-colors duration-300">
+          Add to Cart
+        </button>
+        <Link
+          className="bg-neutral-800 hover:bg-violet-600 px-4 py-4 rounded flex-[2] transition-colors duration-300 grid place-items-center"
+          href={`/products/${product.id}`}
+        >
+          Details
+        </Link>
       </div>
     </div>
   );
 };
 
-export default ProductsPage;
+export default ProductCard;

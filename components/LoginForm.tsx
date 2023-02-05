@@ -1,21 +1,17 @@
 "use client";
 
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import Image from "next/image";
 import React from "react";
 import { IoCloseOutline } from "react-icons/io5";
 import { AiOutlineLink } from "react-icons/ai";
-type Props = {};
+type Props = {
+  toggleLoginForm: Function;
+};
 
-const LoginForm = (props: Props) => {
-  const [isOpen, setIsOpen] = useState(true);
-
+const LoginForm = ({ toggleLoginForm }: Props) => {
   return (
-    <div
-      className={`${
-        isOpen ? "grid" : "hidden"
-      } absolute top-0 bottom-0 left-0 right-0 h-[100vh] bg-black bg-opacity-80 place-items-center z-[99] p-12`}
-    >
+    <div className="grid fixed top-0 bottom-0 left-0 right-0 h-[100vh] bg-black bg-opacity-80 place-items-center z-[99] p-12">
       <div className="p-12 bg-black border border-neutral-700 relative">
         <div
           className="w-80
@@ -25,7 +21,7 @@ const LoginForm = (props: Props) => {
           <button
             aria-label="Close panel"
             className="absolute top-0 right-0 m-6"
-            onClick={() => setIsOpen(false)}
+            onClick={() => toggleLoginForm()}
           >
             <IoCloseOutline
               size={24}
