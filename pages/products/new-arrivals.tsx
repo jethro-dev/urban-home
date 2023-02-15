@@ -4,7 +4,7 @@ import ProductPageLayout from "layout/ProductPageLayout";
 import { prisma } from "@lib/prisma";
 import { GetServerSideProps } from "next";
 import React, { ReactElement } from "react";
-import { Product } from "typings";
+import { Product } from "@prisma/client";
 
 type Props = {
   products: Product[];

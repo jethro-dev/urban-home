@@ -1,9 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { Product } from "../typings";
 import ProductCard from "@components/ProductCard";
 import { prisma } from "@lib/prisma";
+import { Product } from "@prisma/client";
 
 type Props = {
   products: Product[];

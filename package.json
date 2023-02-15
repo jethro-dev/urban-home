@@ -9,10 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@headlessui/react": "^1.7.9",
+    "@headlessui/react": "^1.7.10",
     "@heroicons/react": "^2.0.14",
     "@next/font": "13.1.1",
-    "@prisma/client": "^4.8.1",
+    "@paralleldrive/cuid2": "^2.0.1",
+    "@prisma/client": "^4.10.0",
     "@reduxjs/toolkit": "^1.9.2",
     "@types/node": "18.11.18",
     "@types/react": "18.0.26",
@@ -21,19 +22,23 @@
     "eslint-config-next": "13.1.1",
     "flowbite": "^1.6.3",
     "flowbite-react": "^0.3.8",
+    "nanoid": "^4.0.1",
     "next": "13.1.1",
+    "next-auth": "^4.19.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.7.1",
     "react-multi-carousel": "^2.8.2",
     "react-redux": "^8.0.5",
     "redux": "^4.2.1",
+    "tailwind-scrollbar": "^2.1.0",
     "typescript": "4.9.4"
   },
   "devDependencies": {
+    "@tailwindcss/forms": "^0.5.3",
     "autoprefixer": "^10.4.13",
     "postcss": "^8.4.20",
-    "prisma": "^4.8.1",
+    "prisma": "^4.10.0",
     "tailwindcss": "^3.2.4"
   }
 }

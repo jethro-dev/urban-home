@@ -5,6 +5,7 @@ import "@styles/globals.css";
 import { Provider } from "react-redux";
 import { store } from "../store";
 import { Noto_Sans } from "@next/font/google";
+import { SessionProvider } from "next-auth/react";
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -30,9 +31,11 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
           font-family: ${notoSans.style.fontFamily};
         }
       `}</style>
-      <Provider store={store}>
-        {getLayout(<Component {...pageProps} />)}
-      </Provider>
+      <SessionProvider session={pageProps.session}>
+        <Provider store={store}>
+          {getLayout(<Component {...pageProps} />)}
+        </Provider>
+      </SessionProvider>
     </>
   );
 }

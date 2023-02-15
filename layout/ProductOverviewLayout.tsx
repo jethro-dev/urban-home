@@ -8,8 +8,8 @@ import BreadcrumbComponent from "@components/Breadcrumb";
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <BreadcrumbComponent />
-      <div>{children}</div>
+      {/* <BreadcrumbComponent /> */}
+      <div className="mt-[150px] lg:mt-[110px]">{children}</div>
     </>
   );
 }

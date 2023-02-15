@@ -1,7 +1,7 @@
+import { Product } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { Product } from "typings";
 import ProductList from "./ProductList";
 
 type Props = {
@@ -11,14 +11,17 @@ type Props = {
 const ProductCard = ({ product }: Props) => {
   return (
     <div className="rounded overflow-hidden ring-1 ring-neutral-600 shadow-md hover:ring-neutral-500 transition-all group relative">
-      <div className="grid place-items-center">
-        <Link href={`/products/${product.id}`}>
+      <div className="relative h-[400px]">
+        <Link href={`/products/${product.slug}`}>
           <Image
-            src={`${product.img}`}
+            src={`${
+              product.images.length != 0
+                ? product.images[0]
+                : "/images/rick.svg"
+            }`}
             alt={product.name}
-            width={300}
-            height={300}
-            className="p-16"
+            fill={true}
+            className="object-cover ring-2"
           />
         </Link>
       </div>

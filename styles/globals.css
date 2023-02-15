@@ -14,8 +14,12 @@ body {
 }
 
 body {
-  @apply bg-white text-black;
+  @apply bg-white text-black scrollbar;
   overflow-x: hidden;
+}
+
+.scrollbar {
+  @apply scrollbar-thin scrollbar-track-rounded-md scrollbar-track-white scrollbar-thumb-neutral-300 scrollbar-thumb-rounded-md;
 }
 
 a {

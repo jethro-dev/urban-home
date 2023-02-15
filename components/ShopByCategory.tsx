@@ -2,11 +2,13 @@ import Link from "next/link";
 import React from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import { Category } from "typings";
 import { Button } from "flowbite-react";
 import Image from "next/image";
 import { HiArrowNarrowRight } from "react-icons/hi";
-type Props = {};
+import { Category } from "@prisma/client";
+type Props = {
+  categories: Category[];
+};
 
 const responsive = {
   superLargeDesktop: {
@@ -28,7 +30,7 @@ const responsive = {
   },
 };
 
-const categories: Category[] = [
+const categories: any = [
   { id: "1", name: "Furniture", slug: "category-1", img: "category-1.jpg" },
   { id: "2", name: "Decor", slug: "category-2", img: "category-2.jpg" },
   { id: "3", name: "Aromatherapy", slug: "category-3", img: "category-3.jpg" },
@@ -37,7 +39,7 @@ const categories: Category[] = [
   { id: "6", name: "Bedroom", slug: "bedroom", img: "bedroom.jpg" },
 ];
 
-const ShopByCategory = (props: Props) => {
+const ShopByCategory = ({}: Props) => {
   return (
     <div>
       <div className="flex items-center justify-between mb-10">

@@ -3,12 +3,12 @@ import ProductList from "@components/ProductList";
 import { prisma } from "@lib/prisma";
 import { GetServerSideProps } from "next";
 import React from "react";
-import { Product } from "typings";
 import Link from "next/link";
 import { NextPageWithLayout } from "pages/_app";
 import ProductPageLayout from "@layout/ProductPageLayout";
 import Layout from "@layout/Layout";
 import { useRouter } from "next/router";
+import { Product } from "@prisma/client";
 
 type Props = {
   products: Product[];
@@ -19,14 +19,14 @@ const sortProducts = (sort: string, products: Product[]): Product[] => {
     case "trending-desc":
       products.sort((a, b) => {
         return (
-          new Date(b.createdBy).valueOf() - new Date(a.createdBy).valueOf()
+          new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf()
         );
       });
       break;
     case "latest-desc":
       products.sort((a, b) => {
         return (
-          new Date(b.createdBy).valueOf() - new Date(a.createdBy).valueOf()
+          new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf()
         );
       });
       break;
@@ -53,13 +53,21 @@ const ProductPage = ({ products }: Props) => {
     products = sortProducts(sort as string, products);
   }
 
+  console.log(products);
   return <ProductList products={products} />;
+  return <div>hello world</div>;
 };
 
 export const getServerSideProps: GetServerSideProps<{
   products: Product[];
 }> = async () => {
-  const products = await prisma.product.findMany();
+  const products = await prisma.product.findMany({
+    include: {
+      category: true,
+      collection: true,
+      color: true,
+    },
+  });
 
   return {
     props: {

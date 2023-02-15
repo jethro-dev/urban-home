@@ -4,8 +4,7 @@ import { prisma } from "@lib/prisma";
 import { GetServerSideProps } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import React, { ReactElement } from "react";
-import { Product } from "typings";
+import React, { ReactElement, useState } from "react";
 import Breadcrumb from "@components/Breadcrumb";
 import Rating from "@components/Rating";
 import ColorPicker from "@components/ColorPicker";
@@ -15,37 +14,40 @@ import FavouriteBtn from "@components/FavouriteBtn";
 import Accordion from "@components/Accordion";
 import ImageGallery from "@components/ImageGallery";
 import ProductOverviewLayout from "@layout/ProductOverviewLayout";
+import { ShoppingCartState } from "typings";
+import {
+  Category,
+  Collection,
+  Product as ProductType,
+  Variant,
+} from "@prisma/client";
+import { nanoid } from "nanoid";
+
 type Props = {
   product: Product;
 };
 
-const colors = [
-  { name: "Green", hexCode: "#00ff00" },
-  { name: "Red", hexCode: "#ff0000" },
-  { name: "Blue", hexCode: "#0000ff" },
-];
-
-const images = [
-  {
-    src: "/images/rick.svg",
-    alt: "Rick",
-  },
-  {
-    src: "/images/morty.svg",
-    alt: "Morty",
-  },
-  {
-    src: "/images/brave.svg",
-    alt: "Brave",
-  },
-  {
-    src: "/images/batman.svg",
-    alt: "Batman",
-  },
-];
+interface Product extends ProductType {
+  categories: Category[];
+  collection: Collection[];
+  variants: Variant[];
+}
 
 const ProductPage = ({ product }: Props) => {
+  const [quantity, setQuantity] = useState<number>(1);
+  const [variant, setVariant] = useState<Variant>(product.variants[0]);
+
   if (!product) return <ProductNotFound />;
+
+  const handleNumberChange = (value: number) => {
+    setQuantity(value);
+  };
+
+  const handleVariantChange = (variant: Variant) => {
+    setVariant(variant);
+  };
+
+  console.log({ quantity, variant });
 
   return (
     <div className="max-w-7xl mx-auto mt-4 lg:mt-6 px-4 lg:px-6">
@@ -53,7 +55,10 @@ const ProductPage = ({ product }: Props) => {
         <div className="w-full flex-1 flex items-start relative flex-col gap-4 lg:gap-8 lg:flex-row">
           {/* left */}
           <div className="flex-1 overflow-auto sticky lg:top-[130px] w-full">
-            <ImageGallery images={images} />
+            <ImageGallery
+              variants={product.variants}
+              selectedVariant={variant}
+            />
           </div>
           {/* right */}
           <div className="flex-1">
@@ -61,11 +66,22 @@ const ProductPage = ({ product }: Props) => {
             <p className="mb-4 text-lg font-medium">${product.price}</p>
             <Rating value={4} className="mb-4" />
             <p className="mb-4 text-base font-light">{product.description}</p>
-            <ColorPicker colors={colors} className="mb-4" />
-            <NumberCounter className="mb-4" />
+            <ColorPicker
+              className="mb-4"
+              variants={product.variants}
+              onVariantChange={handleVariantChange}
+            />
+            <NumberCounter
+              className="mb-4"
+              onNumberChange={handleNumberChange}
+            />
 
             <div className="flex items-start gap-1 mb-4">
-              <AddToCartBtn item={{ id: 1, product: product, quantity: 2 }} />
+              <AddToCartBtn
+                product={product}
+                variant={variant}
+                quantity={quantity}
+              />
               <FavouriteBtn />
             </div>
 
@@ -88,11 +104,15 @@ export const getServerSideProps: GetServerSideProps<{
 
   const product = await prisma.product.findUnique({
     where: {
-      id: params?.id as string,
+      slug: params?.id as string,
+    },
+    include: {
+      variants: true,
+      collection: true,
+      category: true,
+      color: true,
     },
   });
-
-  console.log(product);
 
   return {
     props: {

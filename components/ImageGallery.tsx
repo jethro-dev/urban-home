@@ -1,40 +1,44 @@
+import { Variant } from "@prisma/client";
 import Image from "next/image";
-import React, { useState } from "react";
-
-interface Image {
-  src: string;
-  alt: string;
-}
+import React, { useEffect, useState } from "react";
 
 interface Props {
-  images: Image[];
+  variants: Variant[];
+  selectedVariant: Variant;
 }
 
-const ImageGallery: React.FC<Props> = ({ images }) => {
-  const [selectedImage, setSelectedImage] = useState(images[0]);
+const ImageGallery: React.FC<Props> = ({ variants, selectedVariant }) => {
+  const [currentVariant, setCurrentVariant] =
+    useState<Variant>(selectedVariant);
+  useEffect(() => {
+    setCurrentVariant(selectedVariant);
+  }, [selectedVariant]);
 
   return (
     <div className="w-full h-full overflow-hidden">
-      <Image
-        src={selectedImage.src}
-        alt={selectedImage.alt}
-        width={100}
-        height={100}
-        className="w-full h-full object-contain mb-4 rounded ring-2 ring-inset aspect-square"
-      />
+      <div className="relative aspect-square mb-4">
+        <Image
+          src={currentVariant.image}
+          alt={currentVariant.name}
+          fill={true}
+          className="w-full h-full object-cover rounded shadow-md"
+        />
+      </div>
 
       <div className="flex gap-4 overflow-auto">
-        {images.map((image, index) => (
-          <div className="relative flex-1 ring-2 aspect-square">
+        {variants.map((variant, index) => (
+          <div className="relative flex-1 aspect-square">
             <Image
               key={index}
-              src={image.src}
-              alt={image.alt}
+              src={variant.image}
+              alt={variant.name}
               fill={true}
-              className={`object-cover cursor-pointer ring-2 ring-inset rounded ${
-                selectedImage === image ? "shadow-lg" : ""
+              className={`object-cover cursor-pointer rounded-md ${
+                currentVariant.id === variant.id
+                  ? "shadow-md border-2 border-neutral-200"
+                  : ""
               }`}
-              onClick={() => setSelectedImage(image)}
+              onClick={() => setCurrentVariant(variant)}
             />
           </div>
         ))}

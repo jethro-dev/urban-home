@@ -4,6 +4,7 @@ import { FiShoppingBag } from "react-icons/fi";
 import { HiMenuAlt3 } from "react-icons/hi";
 import { AiOutlineSearch } from "react-icons/ai";
 import Image from "next/image";
+import { signOut, useSession } from "next-auth/react";
 
 type Props = {
   toggleLoginForm: Function;
@@ -11,8 +12,10 @@ type Props = {
 };
 
 const Header = ({ toggleLoginForm, toggleCart }: Props) => {
+  const { data: session } = useSession();
+
   return (
-    <header className="fixed top-0 left-0 right-0 w-full max-w-7xl mx-auto mt-2 z-[9999] px-4 lg:px-6">
+    <header className="fixed top-0 left-0 right-0 w-full max-w-7xl mx-auto mt-2 z-[40] px-4 lg:px-6">
       {/* wrapper */}
       <div className="bg-white mx-auto px-8 pb-6 lg:pb-0 rounded-lg shadow-2xl border border-neutral-100">
         {/* upper */}
@@ -57,7 +60,7 @@ const Header = ({ toggleLoginForm, toggleCart }: Props) => {
                 <li className="grid place-items-center">
                   <button
                     aria-label="Cart items: 0"
-                    onClick={() => toggleCart()}
+                    onClick={() => toggleCart((prev: boolean) => !prev)}
                   >
                     <FiShoppingBag
                       size={28}
@@ -66,12 +69,21 @@ const Header = ({ toggleLoginForm, toggleCart }: Props) => {
                   </button>
                 </li>
                 <li className="grid place-items-center">
-                  <button
-                    className="hover:ring-2 hover:scale-105 ring-white rounded-full overflow-hidden transition-all"
-                    onClick={() => toggleLoginForm()}
-                  >
-                    <div className="bg-red-500 w-[28px] h-[28px]"></div>
-                  </button>
+                  {session ? (
+                    <button
+                      className="hover:ring-2 hover:scale-105 ring-white rounded-full overflow-hidden transition-all"
+                      onClick={() => signOut}
+                    >
+                      <div className="bg-green-500 w-[28px] h-[28px]"></div>
+                    </button>
+                  ) : (
+                    <button
+                      className="hover:ring-2 hover:scale-105 ring-white rounded-full overflow-hidden transition-all"
+                      onClick={() => toggleLoginForm()}
+                    >
+                      <div className="bg-neutral-500 w-[28px] h-[28px]"></div>
+                    </button>
+                  )}
                 </li>
                 <li className="md:hidden grid place-items-center">
                   <button data-variant="naked" aria-label="Menu">
