@@ -20,11 +20,11 @@ const ColorPicker = ({ className, variants, onVariantChange }: Props) => {
     <div className={`${className ? className : ""}`}>
       <h3 className="font-semibold text-base mb-2">Variants</h3>
       <p className="font-normal text-sm mb-2">{selectedVariant.name}</p>
-      <div className="flex gap-2">
+      <div className="flex gap-2 flex-wrap">
         {variants.map((variant) => (
           <div
             key={variant.id}
-            className="relative h-20 w-20 rounded-md hover:ring-1 ring-neutral-300 overflow-hidden transition-all cursor-pointer"
+            className="relative h-[100px] w-[100px] rounded-md hover:ring-1 ring-neutral-300 overflow-hidden transition-all cursor-pointer"
             onClick={() => handleVariantChange(variant)}
           >
             <Image

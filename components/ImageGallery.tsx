@@ -15,7 +15,7 @@ const ImageGallery: React.FC<Props> = ({ variants, selectedVariant }) => {
   }, [selectedVariant]);
 
   return (
-    <div className="w-full h-full overflow-hidden">
+    <div className="w-full mb-6 overflow-hidden ring-2 ring-inset">
       <div className="relative h-[400px] mb-4">
         <Image
           src={currentVariant.image}
@@ -25,9 +25,9 @@ const ImageGallery: React.FC<Props> = ({ variants, selectedVariant }) => {
         />
       </div>
 
-      <div className="flex gap-4 overflow-auto">
+      <div className="flex gap-4 flex-wrap">
         {variants.map((variant, index) => (
-          <div className="relative flex-1 aspect-square">
+          <div className="relative h-[100px] w-[100px]">
             <Image
               key={index}
               src={variant.image}

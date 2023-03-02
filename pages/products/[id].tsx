@@ -54,14 +54,42 @@ const ProductPage = ({ product }: Props) => {
       <div className="min-h-[500px] flex flex-col items-start gap-4 mb-4">
         <div className="w-full flex-1 relative gap-4 lg:gap-8 grid grid-cols-12">
           {/* left */}
-          <div className="col-span-12 md:col-span-7 overflow-auto sticky lg:top-[130px] w-full">
+          <div className="col-span-12 md:col-span-7 sticky lg:top-[130px] w-full">
             <ImageGallery
               variants={product.variants}
               selectedVariant={variant}
             />
+
+            <p className="mb-4">{product.description}</p>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam
+              placeat, minus in vel reiciendis suscipit eveniet aliquid minima
+              quae dolore, reprehenderit tenetur nihil sed at recusandae quia
+              unde veritatis voluptate ullam? Sapiente nostrum, ullam
+              dignissimos qui tempora unde sint repellendus fugiat veniam
+              explicabo dolore illum, facere ab nihil iure perspiciatis
+              voluptate illo! Debitis molestias doloremque sequi repudiandae
+              dolor nam optio nisi voluptates quod incidunt, molestiae qui.
+              Culpa velit incidunt voluptas sed libero autem unde aliquam
+              cumque, eos minima, corporis expedita non nisi saepe atque,
+              officia sit molestiae accusantium. Praesentium nam impedit maxime
+              itaque perspiciatis magnam. Illo earum nisi ratione cum numquam
+              nostrum culpa odit molestias suscipit unde voluptates maiores
+              praesentium rem eaque iure, nemo exercitationem officiis
+              voluptatem deleniti tempora fuga autem assumenda ex! Itaque,
+              veritatis omnis. Maiores minima optio aperiam autem obcaecati,
+              temporibus quidem facilis sapiente quaerat asperiores est aliquid
+              placeat, facere esse nam sequi alias distinctio soluta laboriosam
+              unde eius. Possimus, hic consequuntur vero pariatur fuga quisquam
+              assumenda ut at nostrum porro itaque aperiam beatae aliquam eaque
+              sapiente laborum veniam dolorum ad deleniti suscipit rem officia,
+              maiores iure facilis. Deleniti sed recusandae saepe reprehenderit
+              possimus officia qui quo, odit, veritatis unde fuga consectetur,
+              porro quod veniam voluptatem nemo earum.
+            </p>
           </div>
           {/* right */}
-          <div className="col-span-12 md:col-span-5">
+          <div className="ring-2 col-span-12 md:col-span-5">
             <h1 className="mb-1 text-xl font-semibold">{product.name}</h1>
             <p className="mb-4 text-lg font-medium">${product.price}</p>
             <Rating value={4} className="mb-4" />
@@ -90,8 +118,10 @@ const ProductPage = ({ product }: Props) => {
         </div>
       </div>
 
-      <div className="h-[600px]">
-        TODO: features, reviews,recently viewed, recommand,
+      {/* TODO: features, reviews,recently viewed, recommand, */}
+      <div className="h-[600px] ring-2">
+        <h3>Related products</h3>
+        <div></div>
       </div>
     </div>
   );

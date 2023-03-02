@@ -73,12 +73,12 @@ export default function Example({ children }: { children: React.ReactNode }) {
     <div className="bg-white divide-y py-4 md:py-6 lg:py-8">
       {/* upper */}
       <div className="pb-4 md:pb-6 lg:pb-8 space-x-3">
-        <Dropdown title="Sort" />
-        <Dropdown title="Color" />
+        {/* [FIXME] Dropdown components give useReducer error on reload */}
+        {/* <Dropdown title="Sort" /> */}
+        {/* <Dropdown title="Color" />
         <Dropdown title="Category" />
-        <Dropdown title="Collection" />
+        <Dropdown title="Collection" /> */}
       </div>
-
       {/* lower */}
       <div className="pt-4 md:pt-6 lg:pt-8">{children}</div>
     </div>

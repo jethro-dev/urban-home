@@ -30,16 +30,8 @@ const responsive = {
   },
 };
 
-const categories: any = [
-  { id: "1", name: "Furniture", slug: "category-1", img: "category-1.jpg" },
-  { id: "2", name: "Decor", slug: "category-2", img: "category-2.jpg" },
-  { id: "3", name: "Aromatherapy", slug: "category-3", img: "category-3.jpg" },
-  { id: "4", name: "Chairs", slug: "category-4", img: "category-4.jpg" },
-  { id: "5", name: "Bathroom", slug: "bathroom", img: "bathroom.jpg" },
-  { id: "6", name: "Bedroom", slug: "bedroom", img: "bedroom.jpg" },
-];
-
-const ShopByCategory = ({}: Props) => {
+const ShopByCategory = ({ categories }: Props) => {
+  console.log(categories);
   return (
     <div>
       <div className="flex items-center justify-between mb-10">
@@ -64,7 +56,7 @@ const ShopByCategory = ({}: Props) => {
           <Link href={`/categories/${category.slug}`}>
             <div className="h-full relative">
               <Image
-                src={`/images/${category.img}`}
+                src={`${category.image}`}
                 alt={category.name}
                 fill={true}
                 className="object-cover object-center rounded-md brightness-50 hover:brightness-75 transition-all shadow-md"

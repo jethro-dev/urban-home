@@ -41,7 +41,6 @@ model Product {
   name        String
   description String
   price       Float
-  images      String[]
   slug        String       @unique
   review      Review[]
   category    Category[]
