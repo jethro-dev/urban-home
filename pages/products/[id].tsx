@@ -52,16 +52,16 @@ const ProductPage = ({ product }: Props) => {
   return (
     <div className="max-w-7xl mx-auto mt-4 lg:mt-6 px-4 lg:px-6">
       <div className="min-h-[500px] flex flex-col items-start gap-4 mb-4">
-        <div className="w-full flex-1 flex items-start relative flex-col gap-4 lg:gap-8 lg:flex-row">
+        <div className="w-full flex-1 relative gap-4 lg:gap-8 grid grid-cols-12">
           {/* left */}
-          <div className="flex-1 overflow-auto sticky lg:top-[130px] w-full">
+          <div className="col-span-12 md:col-span-7 overflow-auto sticky lg:top-[130px] w-full">
             <ImageGallery
               variants={product.variants}
               selectedVariant={variant}
             />
           </div>
           {/* right */}
-          <div className="flex-1">
+          <div className="col-span-12 md:col-span-5">
             <h1 className="mb-1 text-xl font-semibold">{product.name}</h1>
             <p className="mb-4 text-lg font-medium">${product.price}</p>
             <Rating value={4} className="mb-4" />

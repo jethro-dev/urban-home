@@ -55,7 +55,6 @@ const ProductPage = ({ products }: Props) => {
 
   console.log(products);
   return <ProductList products={products} />;
-  return <div>hello world</div>;
 };
 
 export const getServerSideProps: GetServerSideProps<{
@@ -66,6 +65,7 @@ export const getServerSideProps: GetServerSideProps<{
       category: true,
       collection: true,
       color: true,
+      variants: true,
     },
   });
 

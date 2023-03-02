@@ -1,8 +1,12 @@
-import { Product } from "@prisma/client";
+import { Collection, Product as ProductType } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { Product } from "typings";
+import AddToCartBtn from "./AddToCartBtn";
+import FavouriteBtn from "./FavouriteBtn";
 import ProductList from "./ProductList";
+import Rating from "./Rating";
 
 type Props = {
   product: Product;
@@ -10,42 +14,36 @@ type Props = {
 
 const ProductCard = ({ product }: Props) => {
   return (
-    <div className="rounded overflow-hidden ring-1 ring-neutral-600 shadow-md hover:ring-neutral-500 transition-all group relative">
-      <div className="relative h-[400px]">
+    <div className="bg-white overflow-hidden transition-all group relative p-4 flex flex-col gap-2 ring-1 ring-neutral-200 shadow-md rounded-md">
+      <div className="relative aspect-square">
         <Link href={`/products/${product.slug}`}>
           <Image
-            src={`${
-              product.images.length != 0
-                ? product.images[0]
-                : "/images/rick.svg"
-            }`}
+            src={`${product.variants[0].image}`}
             alt={product.name}
             fill={true}
-            className="object-cover ring-2"
+            className="object-contain"
           />
         </Link>
       </div>
-      <hr className="border-1 border-neutral-600 mx-4" />
-      <div className="flex items-center justify-between px-4 h-20">
-        <div className="flex flex-col">
-          <span className="font-semibold">{product.name}</span>
-          {/* <span className="font-light text-sm">{product.categories[0]}</span> */}
-        </div>
-        <div>
-          <span>${product.price}</span>
-        </div>
+
+      <div>
+        <h3 className="font-semibold">{product.name}</h3>
+        <h3 className="font-light text-sm">Armchair</h3>
       </div>
-      {/* overlay */}
-      <div className="absolute bottom-0 bg-neutral-600 w-full flex invisible group-hover:visible items-center justify-between px-4 h-[84px] gap-2 translate-y-[200px] group-hover:translate-y-0 transition-all">
-        <button className="bg-violet-600 hover:bg-violet-700 px-4 py-4 rounded flex-[3] transition-colors duration-300">
-          Add to Cart
-        </button>
-        <Link
-          className="bg-neutral-800 hover:bg-violet-600 px-4 py-4 rounded flex-[2] transition-colors duration-300 grid place-items-center"
-          href={`/products/${product.id}`}
-        >
-          Details
-        </Link>
+
+      <div className="">
+        <h3>${product.price}</h3>
+      </div>
+
+      <Rating value={4} />
+
+      <div className="flex items-start gap-2">
+        <AddToCartBtn
+          product={product}
+          variant={product.variants[0]}
+          quantity={1}
+        />
+        <FavouriteBtn />
       </div>
     </div>
   );

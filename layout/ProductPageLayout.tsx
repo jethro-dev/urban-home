@@ -19,7 +19,7 @@ const ProductPageLayout = ({ children }: Props) => {
   return (
     <div className="ring-2">
       <div className="relative h-[400px] bg-fixed bg-bottom bg-cover bg-[url('/images/banner-1.jpg')]"></div>
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto sm:px-6 px-2">
         {/* <BreadcrumbComponent /> */}
 
         <CategoryFilterLayout>{children}</CategoryFilterLayout>

@@ -2,7 +2,7 @@ import Link from "next/link";
 import React, { Dispatch, SetStateAction } from "react";
 import { FiShoppingBag } from "react-icons/fi";
 import { HiMenuAlt3 } from "react-icons/hi";
-import { AiOutlineSearch } from "react-icons/ai";
+import { AiOutlineSearch, AiOutlineUser } from "react-icons/ai";
 import Image from "next/image";
 import { signOut, useSession } from "next-auth/react";
 
@@ -71,17 +71,30 @@ const Header = ({ toggleLoginForm, toggleCart }: Props) => {
                 <li className="grid place-items-center">
                   {session ? (
                     <button
-                      className="hover:ring-2 hover:scale-105 ring-white rounded-full overflow-hidden transition-all"
-                      onClick={() => signOut}
+                      className="ring-2 hover:scale-105 ring-neutral-700 rounded-full overflow-hidden transition-all"
+                      onClick={() => signOut({ redirect: false })}
                     >
-                      <div className="bg-green-500 w-[28px] h-[28px]"></div>
+                      <div className="w-[28px] h-[28px] p-[1px]">
+                        {session.user?.image ? (
+                          <img
+                            src={`${session.user?.image}`}
+                            alt={`${session.user?.name}`}
+                            className="rounded-full"
+                          />
+                        ) : (
+                          <img
+                            src={`/images/user-pfp-placeholder.jpg`}
+                            alt={`${session.user?.name}`}
+                          />
+                        )}
+                      </div>
                     </button>
                   ) : (
                     <button
-                      className="hover:ring-2 hover:scale-105 ring-white rounded-full overflow-hidden transition-all"
+                      className="hover:scale-105 ring-2 ring-neutral-700 p-1  rounded-full text-neutral-700 hover:text-black transition-all"
                       onClick={() => toggleLoginForm()}
                     >
-                      <div className="bg-neutral-500 w-[28px] h-[28px]"></div>
+                      <AiOutlineUser size={20} />
                     </button>
                   )}
                 </li>
