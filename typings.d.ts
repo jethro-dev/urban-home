@@ -1,4 +1,10 @@
-import { Product as ProductType, Variant } from "@prisma/client";
+import {
+  Product as ProductType,
+  Variant,
+  Color,
+  Category,
+  Collection,
+} from "@prisma/client";
 
 export interface ShoppingCartItem {
   id: string;
