@@ -5,6 +5,8 @@ import { HiMenuAlt3 } from "react-icons/hi";
 import { AiOutlineSearch, AiOutlineUser } from "react-icons/ai";
 import Image from "next/image";
 import { signOut, useSession } from "next-auth/react";
+import { useSelector } from "react-redux";
+import { RootState } from "store";
 
 type Props = {
   toggleLoginForm: Function;
@@ -13,6 +15,7 @@ type Props = {
 
 const Header = ({ toggleLoginForm, toggleCart }: Props) => {
   const { data: session } = useSession();
+  const cartItems = useSelector((state: RootState) => state.shoppingCart.items);
 
   return (
     <header className="fixed top-0 left-0 right-0 w-full max-w-7xl mx-auto mt-2 z-[40] px-4 lg:px-6">
@@ -61,11 +64,20 @@ const Header = ({ toggleLoginForm, toggleCart }: Props) => {
                   <button
                     aria-label="Cart items: 0"
                     onClick={() => toggleCart((prev: boolean) => !prev)}
+                    className="relative"
                   >
                     <FiShoppingBag
                       size={28}
                       className="hover:scale-105 transition-all"
                     />
+
+                    <span
+                      className={`absolute top-[-12px] right-[-10px] z-10 bg-violet-500 shadow-md text-white rounded-full h-6 w-6 text-xs grid place-items-center transition-all ${
+                        cartItems.length > 0 ? "opacity-100" : "opacity-0"
+                      }`}
+                    >
+                      {cartItems.length}
+                    </span>
                   </button>
                 </li>
                 <li className="grid place-items-center">
