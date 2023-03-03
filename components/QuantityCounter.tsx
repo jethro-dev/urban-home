@@ -36,7 +36,7 @@ const QuantityCounter: React.FC<Props> = ({ itemId, quantity }) => {
         type="number"
         value={count}
         readOnly
-        className="h-6 w-8 border-none outline-none text-black font-semibold"
+        className="h-6 w-[50px] text-center border-none outline-none text-black font-semibold"
       />
       <button
         onClick={handleIncrement}

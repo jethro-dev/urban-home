@@ -23,6 +23,7 @@ import {
 } from "@prisma/client";
 import { nanoid } from "nanoid";
 import ProductCarousel from "@components/ProductCarousel";
+import QuantityCounter from "@components/QuantityCounter";
 
 type Props = {
   product: Product;
@@ -31,7 +32,7 @@ type Props = {
 
 const ProductPage = ({ product, relatedProducts }: Props) => {
   const [quantity, setQuantity] = useState<number>(1);
-  const [variant, setVariant] = useState<Variant>(product.variants[0]);
+  const [variant, setVariant] = useState<Variant | null>(product?.variants[0]);
 
   if (!product) return <ProductNotFound />;
 
@@ -49,15 +50,28 @@ const ProductPage = ({ product, relatedProducts }: Props) => {
     <div className="max-w-7xl mx-auto mt-4 lg:mt-6 px-4 lg:px-6">
       <div className="w-full relative gap-4 lg:gap-8 grid grid-cols-12 mb-6">
         {/* left */}
-        <div className="col-span-12 md:col-span-7 sticky lg:top-[130px] w-full">
-          <ImageGallery variants={product.variants} selectedVariant={variant} />
+        <div className="col-span-12 md:col-span-7 lg:col-span-8 sticky lg:top-[130px] w-full">
+          <div className="mb-14">
+            <ImageGallery
+              variants={product.variants}
+              selectedVariant={variant!}
+            />
+          </div>
 
-          <p className="mb-4">{product.description}</p>
-          <Accordion />
-          <ProductCarousel products={relatedProducts} />
+          <p className="mb-10 text-xl font-medium text-neutral-700">
+            {product.description}
+          </p>
+
+          <div className="mb-10">
+            <Accordion />
+          </div>
+
+          <div className="hidden md:block">
+            <ProductCarousel products={relatedProducts} />
+          </div>
         </div>
         {/* right */}
-        <div className="col-span-12 md:col-span-5">
+        <div className="col-span-12 md:col-span-5 lg:col-span-4">
           <div className="ring-1 ring-neutral-200 p-6 shadow-md rounded-md  sticky top-[98px]">
             <h1 className="mb-1 text-xl font-semibold">{product.name}</h1>
             <p className="mb-4 text-lg font-medium">${product.price}</p>
@@ -67,25 +81,31 @@ const ProductPage = ({ product, relatedProducts }: Props) => {
               variants={product.variants}
               onVariantChange={handleVariantChange}
             />
-            <NumberCounter
-              className="mb-4"
-              onNumberChange={handleNumberChange}
-            />
 
-            <div className="flex items-start gap-1 mb-4">
+            <div className="flex gap-4 items-center">
+              <NumberCounter onNumberChange={handleNumberChange} />
+
               <AddToCartBtn
                 product={product}
-                variant={variant}
+                variant={variant!}
                 quantity={quantity}
               />
-              <FavouriteBtn />
+              <div className="absolute top-0 right-0 p-4">
+                <FavouriteBtn />
+              </div>
             </div>
           </div>
         </div>
       </div>
 
       {/* TODO: You might also like, reviews */}
-      <ProductCarousel products={relatedProducts} />
+      <div className="block md:hidden mb-6">
+        <ProductCarousel products={relatedProducts} />
+      </div>
+
+      <div className="mb-6">
+        <ProductCarousel products={relatedProducts} />
+      </div>
     </div>
   );
 };

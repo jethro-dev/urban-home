@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { FiMinus, FiPlus } from "react-icons/fi";
 
 type Props = {
   className?: string;
@@ -15,32 +16,25 @@ const NumberCounter = ({ className, onNumberChange }: Props) => {
   };
 
   return (
-    <div
-      className={`custom-number-input h-10 w-32 ${
-        className ? ` ${className}` : ""
-      }`}
-    >
-      <div className="flex flex-row h-10 w-full rounded-lg relative bg-transparent mt-1 items-stretch">
-        <button
-          className=" bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-l cursor-pointer outline-none"
-          onClick={() => handleNumberChange(number - 1)}
-        >
-          <span className="m-auto text-2xl font-thin">−</span>
-        </button>
-        <input
-          type="number"
-          className="outline-none focus:outline-none text-center w-full bg-gray-300 font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700 border-t-0 border-b-0"
-          name="custom-input-number"
-          value={number}
-          onChange={(e) => handleNumberChange(e.target.valueAsNumber)}
-        ></input>
-        <button
-          className="bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-r cursor-pointer"
-          onClick={() => handleNumberChange(number + 1)}
-        >
-          <span className="m-auto text-2xl font-thin">+</span>
-        </button>
-      </div>
+    <div className="relative ring-1 ring-neutral-200 p-2 flex gap-2 items-center">
+      <button
+        onClick={() => handleNumberChange(number - 1)}
+        className="px-1 h-full text-neutral-700 hover:text-black transition-colors"
+      >
+        <FiMinus />
+      </button>
+      <input
+        type="number"
+        value={number}
+        onChange={(e) => handleNumberChange(e.target.valueAsNumber)}
+        className="h-full w-[50px] text-center border-none outline-none text-black font-semibold"
+      />
+      <button
+        onClick={() => handleNumberChange(number + 1)}
+        className="px-1 h-full text-neutral-700 hover:text-black transition-colors"
+      >
+        <FiPlus />
+      </button>
     </div>
   );
 };

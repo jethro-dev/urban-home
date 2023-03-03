@@ -24,7 +24,9 @@ const ColorPicker = ({ className, variants, onVariantChange }: Props) => {
         {variants.map((variant) => (
           <div
             key={variant.id}
-            className="relative h-[100px] w-[100px] rounded-md hover:ring-1 ring-neutral-300 overflow-hidden transition-all cursor-pointer"
+            className={`relative h-[100px] w-[100px] rounded-md hover:ring-1 ring-neutral-300 overflow-hidden transition-all cursor-pointer ${
+              selectedVariant.id == variant.id ? "ring-1" : "ring-0"
+            }`}
             onClick={() => handleVariantChange(variant)}
           >
             <Image

@@ -15,13 +15,13 @@ const ImageGallery: React.FC<Props> = ({ variants, selectedVariant }) => {
   }, [selectedVariant]);
 
   return (
-    <div className="w-full mb-6 overflow-hidden ring-2 ring-inset">
+    <div className="w-full overflow-hidden">
       <div className="relative h-[400px] mb-4">
         <Image
           src={currentVariant.image}
           alt={currentVariant.name}
           fill={true}
-          className="w-full h-full object-contain rounded shadow-md"
+          className="w-full h-full object-contain"
         />
       </div>
 
