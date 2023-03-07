@@ -24,7 +24,7 @@ export interface Banner {
 }
 
 interface Product extends ProductType {
-  categories: Category[];
+  category: Category[];
   collection: Collection[];
   variants: Variant[];
   color: Color[];

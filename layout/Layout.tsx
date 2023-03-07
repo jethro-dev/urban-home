@@ -4,6 +4,9 @@ import Header from "@components/Header";
 import LoginForm from "@components/LoginForm";
 import CartDrawer from "@components/CartDrawer";
 import Modal from "@components/Modal";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Toast from "@components/Toast";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const [isLoginFormOpened, setIsLoginFormOpened] = useState<boolean>(false);
@@ -43,6 +46,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         toggleCart={toggleCart}
         title={"Cart"}
       />
+
+      <ToastContainer className={"mt-[80px]"} />
     </div>
   );
 }

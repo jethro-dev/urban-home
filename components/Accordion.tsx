@@ -1,10 +1,9 @@
 import React from "react";
 import { Accordion } from "flowbite-react";
 import { HiOutlineArrowCircleDown } from "react-icons/hi";
-import { ProductDetails } from "typings";
 type Props = {};
 
-const productDetails: ProductDetails = {
+const productDetails: any = {
   features: [
     {
       description: "This is the first feature.",
@@ -37,7 +36,7 @@ const CustomAccordion = (props: Props) => {
         <Accordion.Title>Features</Accordion.Title>
         <Accordion.Content>
           <ul className="list-disc pl-5 text-gray-500 dark:text-gray-400">
-            {productDetails.features.map((feature) => (
+            {productDetails.features.map((feature: any) => (
               <li>
                 <span>{feature.description}</span>
               </li>

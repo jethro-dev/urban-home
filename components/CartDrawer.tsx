@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import React, { Dispatch, SetStateAction } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "store";
@@ -83,9 +84,12 @@ const CartDrawer = ({ isOpen, toggleCart, title }: Props) => {
               }, 0)}
             </span>
           </div>
-          <button className="bg-red-800 text-white w-full rounded-md">
+          <Link
+            href={`/checkout`}
+            className="bg-red-800 grid place-items-center text-white w-full rounded-md"
+          >
             Checkout
-          </button>
+          </Link>
         </div>
       </div>
     </Drawer>

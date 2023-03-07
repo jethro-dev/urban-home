@@ -3,7 +3,7 @@ import Link from "next/link";
 import React from "react";
 import ProductCard from "@components/ProductCard";
 import { prisma } from "@lib/prisma";
-import { Product } from "@prisma/client";
+import { Product } from "typings";
 
 type Props = {
   products: Product[];

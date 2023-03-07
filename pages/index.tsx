@@ -2,7 +2,7 @@ import Head from "next/head";
 import Image from "next/image";
 import { Inter } from "@next/font/google";
 import Layout from "@layout/Layout";
-import { ReactElement, useState } from "react";
+import { ReactElement, useState, useEffect } from "react";
 import useWindowDimensions from "hooks/useWindowDimensions";
 import next, { GetStaticProps } from "next";
 import { prisma } from "@lib/prisma";
@@ -15,6 +15,8 @@ import ShopByCategory from "@components/ShopByCategory";
 import NewArrivals from "@components/NewArrivals";
 import ShopByCollection from "@components/ShopByCollection";
 import { Category, Collection, Product } from "@prisma/client";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
 
 type Props = {
   products: Product[];
@@ -22,6 +24,13 @@ type Props = {
   collection: Collection[];
 };
 const inter = Inter({ subsets: ["latin"] });
+
+// Make sure to call loadStripe outside of a component’s render to avoid
+// recreating the Stripe object on every render.
+// This is your test publishable API key.
+const stripePromise = loadStripe(
+  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string
+);
 
 const banners: BannerType[] = [
   {
@@ -39,45 +48,20 @@ const banners: BannerType[] = [
 ];
 
 export default function Home({ products, categories, collection }: Props) {
+  const [clientSecret, setClientSecret] = useState("");
   const [currentIndex, setCurrentIndex] = useState(0);
   const [touchPosition, setTouchPosition] = useState(null);
 
-  console.log({ products });
-  const next = () => {
-    if (currentIndex < banners.length - 1) {
-      setCurrentIndex((prev) => prev + 1);
-    }
-  };
-  const prev = () => {
-    if (currentIndex > 0) {
-      setCurrentIndex((prev) => prev - 1);
-    }
-  };
-
-  const handleTouchStart = (e: any) => {
-    const touchDown = e.touches[0].clientX;
-    setTouchPosition(touchDown);
-  };
-
-  const handleTouchMove = (e: any) => {
-    const touchDown = touchPosition;
-
-    if (touchDown === null) {
-      return;
-    }
-
-    const currentTouch = e.touches[0].clientX;
-    const diff = touchDown - currentTouch;
-
-    if (diff > 5) {
-      next();
-    }
-    if (diff < 5) {
-      prev();
-    }
-
-    setTouchPosition(null);
-  };
+  useEffect(() => {
+    // Create PaymentIntent as soon as the page loads
+    fetch("/api/create-payment-intent", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ items: [{ id: "xl-tshirt" }] }),
+    })
+      .then((res) => res.json())
+      .then((data) => setClientSecret(data.clientSecret));
+  }, []);
 
   if (typeof window !== "undefined") {
     // Client-side-only code
