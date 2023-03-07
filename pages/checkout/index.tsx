@@ -17,10 +17,10 @@ const CheckoutPage = (props: Props) => {
     <div className="max-w-7xl mx-auto mt-4 lg:mt-6 px-4 lg:px-6">
       <div className="w-full relative gap-4 lg:gap-8 grid grid-cols-12 mb-6">
         <div className="col-span-12 md:col-span-7 lg:col-span-8  w-full">
-          <CartDetail cartItems={cartItems} />
+          <CartDetail />
         </div>
         <div className="col-span-12 md:col-span-5 lg:col-span-4">
-          <OrderSummary cartItems={cartItems} />
+          <OrderSummary />
           <CheckoutForm />
         </div>
       </div>

@@ -1,20 +1,23 @@
 import Image from "next/image";
 import React from "react";
+import { ShoppingCartItem } from "typings";
 
-type Props = {};
+type Props = {
+  item: ShoppingCartItem;
+};
 
-const CartDetailRow = (props: Props) => {
+const CartDetailRow = ({ item }: Props) => {
   return (
     <div className="ring-2 ring-inset ring-neutral-600 p-4 rounded flex">
       <Image
-        src="/images/rick.svg"
+        src={item.variant.image}
         alt="Rick"
         width={100}
         height={100}
         className="p-4"
       />
       <div className="p-2">
-        <h1 className="text-xs">Product: Rick</h1>
+        <h1 className="text-xs">{item.product.name}</h1>
         <p className="text-xs">
           Quantity:{" "}
           <div className="flex h-10 gap-2 mb-2">
@@ -22,7 +25,7 @@ const CartDetailRow = (props: Props) => {
               -
             </button>
             <span className="rounded bg-white px-4 grid place-items-center">
-              1
+              {item.quantity}
             </span>
             <button className="w-10 bg-white text-black rounded text-xl font-semibold">
               +
