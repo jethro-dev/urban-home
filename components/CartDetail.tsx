@@ -1,7 +1,8 @@
 import Image from "next/image";
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "store";
+import { removeItem } from "store/slice/shoppingCartSlice";
 import { ShoppingCartItem } from "typings";
 import CartDetailRow from "./CartDetailRow";
 import QuantityCounter from "./QuantityCounter";
@@ -11,11 +12,12 @@ type Props = {};
 const CartDetail = ({}: Props) => {
   const cartItems = useSelector((state: RootState) => state.shoppingCart.items);
   const dispatch = useDispatch();
+
   return (
-    <div className="ring-2 ring-inset ring-neutral-600 p-4">
-      <h1 className="mb-2">Cart</h1>
+    <div>
       {/* cartdetailsrow */}
-      <div className="flex flex-1 flex-col gap-1 ring-1 ring-neutral-200  rounded-md py-1 overflow-auto scrollbar">
+      <div className="flex flex-1 flex-col gap-1 ring-1 ring-neutral-200  rounded-md p-4 overflow-auto scrollbar">
+        <h1 className="mb-2">Cart</h1>
         {cartItems.length > 0 ? (
           cartItems.map((cartItem) => (
             <div
@@ -41,10 +43,7 @@ const CartDetail = ({}: Props) => {
               </div>
               {/* right */}
               <div className="p-4 flex flex-col items-center gap-2">
-                <QuantityCounter
-                  itemId={`${cartItem.id}`}
-                  quantity={cartItem.quantity}
-                />
+                <QuantityCounter itemId={`${cartItem.id}`} />
                 <button
                   className="hover:underline text-xs font-light text-neutral-500 hover:decoration-neutral-500"
                   onClick={() => dispatch(removeItem(cartItem))}

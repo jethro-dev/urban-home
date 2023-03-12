@@ -5,7 +5,7 @@ type Props = {};
 
 const OrderSummaryRow = (props: Props) => {
   return (
-    <div className="flex items-stretch">
+    <div className="flex items-stretch ring-1">
       <Image
         src="/images/rick.svg"
         alt="Rick"

@@ -49,10 +49,7 @@ const CartDrawer = ({ isOpen, toggleCart, title }: Props) => {
                 </div>
                 {/* right */}
                 <div className="p-4 flex flex-col items-center gap-2">
-                  <QuantityCounter
-                    itemId={`${cartItem.id}`}
-                    quantity={cartItem.quantity}
-                  />
+                  <QuantityCounter itemId={`${cartItem.id}`} />
                   <button
                     className="hover:underline text-xs font-light text-neutral-500 hover:decoration-neutral-500"
                     onClick={() => dispatch(removeItem(cartItem))}

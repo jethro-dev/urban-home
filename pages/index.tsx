@@ -19,18 +19,11 @@ import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 
 type Props = {
-  products: Product[];
   categories: Category[];
   collection: Collection[];
 };
-const inter = Inter({ subsets: ["latin"] });
 
-// Make sure to call loadStripe outside of a component’s render to avoid
-// recreating the Stripe object on every render.
-// This is your test publishable API key.
-const stripePromise = loadStripe(
-  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string
-);
+const inter = Inter({ subsets: ["latin"] });
 
 const banners: BannerType[] = [
   {
@@ -47,28 +40,7 @@ const banners: BannerType[] = [
   },
 ];
 
-export default function Home({ products, categories, collection }: Props) {
-  const [clientSecret, setClientSecret] = useState("");
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [touchPosition, setTouchPosition] = useState(null);
-
-  useEffect(() => {
-    // Create PaymentIntent as soon as the page loads
-    fetch("/api/create-payment-intent", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ items: [{ id: "xl-tshirt" }] }),
-    })
-      .then((res) => res.json())
-      .then((data) => setClientSecret(data.clientSecret));
-  }, []);
-
-  if (typeof window !== "undefined") {
-    // Client-side-only code
-    const { height, width } = useWindowDimensions();
-  }
-
-  console.log({ categories });
+export default function Home({ categories, collection }: Props) {
   return (
     <>
       <Head>
@@ -96,10 +68,6 @@ export default function Home({ products, categories, collection }: Props) {
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const products = await prisma.product.findMany({
-    take: 8,
-  });
-
   const categories = await prisma.category.findMany({
     take: 10,
   });
@@ -110,7 +78,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   return {
     props: {
-      products: JSON.parse(JSON.stringify(products)),
       categories: JSON.parse(JSON.stringify(categories)),
       collection: JSON.parse(JSON.stringify(collection)),
     }, // will be passed to the page component as props
