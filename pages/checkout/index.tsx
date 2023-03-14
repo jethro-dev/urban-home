@@ -6,7 +6,11 @@ import BannerLayout from "@layout/BannerLayout";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "store";
 import CheckoutForm from "@components/CheckoutForm";
-import { loadStripe } from "@stripe/stripe-js";
+import {
+  Appearance,
+  loadStripe,
+  StripeElementsOptions,
+} from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 
 type Props = {};
@@ -20,41 +24,43 @@ const stripePromise = loadStripe(
 
 const CheckoutPage = (props: Props) => {
   const [clientSecret, setClientSecret] = useState("");
+  const cartItems = useSelector((state: RootState) => state.shoppingCart.items);
+
+  console.log(cartItems);
 
   useEffect(() => {
-    // Create PaymentIntent as soon as the page loads
     fetch("/api/create-payment-intent", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ items: [{ id: "xl-tshirt" }] }),
+      body: JSON.stringify({ items: cartItems }),
     })
       .then((res) => res.json())
       .then((data) => setClientSecret(data.clientSecret));
   }, []);
 
-  const appearance = {
+  const appearance: Appearance = {
     theme: "stripe",
   };
-  const options = {
+  const options: StripeElementsOptions = {
     clientSecret,
     appearance,
   };
 
   return (
-    <div className="max-w-7xl mx-auto mt-4 lg:mt-6 px-4 lg:px-6">
-      <div className="w-full relative gap-4 lg:gap-8 grid grid-cols-12 mb-6">
-        <div className="col-span-12 md:col-span-7 lg:col-span-8  w-full">
-          <CartDetail />
-        </div>
-        <div className="col-span-12 md:col-span-5 lg:col-span-4 flex flex-col gap-4">
-          <OrderSummary />
-          {clientSecret && (
-            <Elements options={options} stripe={stripePromise}>
-              <CheckoutForm />
-            </Elements>
-          )}
-          <CheckoutForm />
-        </div>
+    <div className="max-w-5xl mx-auto mt-4 lg:mt-6 px-4 lg:px-6">
+      {/* [TODO] Add a go back btn and shop more btn */}
+      <h3>
+        Total:{" "}
+        {cartItems.reduce(function (acc, obj) {
+          return acc + obj.product.price * obj.quantity;
+        }, 0)}
+      </h3>
+      <div className="w-full relative mb-6">
+        {clientSecret && (
+          <Elements options={options} stripe={stripePromise}>
+            <CheckoutForm />
+          </Elements>
+        )}
       </div>
     </div>
   );

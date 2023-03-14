@@ -10,7 +10,7 @@ import QuantityCounter from "./QuantityCounter";
 
 type Props = {
   isOpen: boolean;
-  toggleCart: Function;
+  toggleCart: React.MouseEventHandler;
   title: String;
 };
 
@@ -82,10 +82,11 @@ const CartDrawer = ({ isOpen, toggleCart, title }: Props) => {
             </span>
           </div>
           <Link
-            href={`/checkout`}
+            href={`/cart`}
+            onClick={toggleCart}
             className="bg-red-800 grid place-items-center text-white w-full rounded-md"
           >
-            Checkout
+            Go to cart
           </Link>
         </div>
       </div>

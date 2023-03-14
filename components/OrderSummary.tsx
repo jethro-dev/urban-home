@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "store";
@@ -85,9 +86,12 @@ const OrderSummary = (props: Props) => {
         </span>
       </div>
 
-      {/* <button className="bg-neutral-800 text-neutral-300 py-2 px-4 rounded w-full">
+      <Link
+        href={`/checkout`}
+        className="bg-green-600 text-white py-2 px-4 rounded w-full inline-block text-center"
+      >
         Checkout
-      </button> */}
+      </Link>
     </div>
   );
 };
