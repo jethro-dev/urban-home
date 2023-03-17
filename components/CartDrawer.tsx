@@ -16,7 +16,6 @@ type Props = {
 
 const CartDrawer = ({ isOpen, toggleCart, title }: Props) => {
   const cartItems = useSelector((state: RootState) => state.shoppingCart.items);
-  console.log(cartItems);
   const dispatch = useDispatch();
   return (
     <Drawer isOpen={isOpen} setIsOpen={toggleCart} title={title}>

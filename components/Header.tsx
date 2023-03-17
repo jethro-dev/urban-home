@@ -62,11 +62,7 @@ const Header = ({ toggleLoginForm, toggleCart }: Props) => {
           <div className="flex items-center justify-end flex-1">
             <nav>
               <ul className="flex gap-6">
-                <li
-                  className={`${
-                    router.pathname === "/checkout" ? "hidden" : "grid"
-                  } place-items-center`}
-                >
+                <li className={`grid place-items-center`}>
                   <button
                     aria-label="Cart items: 0"
                     onClick={() => toggleCart((prev: boolean) => !prev)}

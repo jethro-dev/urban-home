@@ -27,11 +27,14 @@ export const shoppingCartSlice = createSlice({
         state.items[itemIndex].quantity = action.payload.quantity;
       }
     },
+    resetCart(state) {
+      state.items = [];
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { addItem, removeItem, updateItemQuantity } =
+export const { addItem, removeItem, updateItemQuantity, resetCart } =
   shoppingCartSlice.actions;
 
 export default shoppingCartSlice.reducer;

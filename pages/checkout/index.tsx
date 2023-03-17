@@ -1,17 +1,18 @@
-import React, { ReactElement, useEffect, useState } from "react";
-import CartDetail from "../../components/CartDetail";
-import OrderSummary from "@components/OrderSummary";
+import CheckoutForm from "@components/CheckoutForm";
 import Layout from "@layout/Layout";
 import BannerLayout from "@layout/BannerLayout";
-import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "store";
-import CheckoutForm from "@components/CheckoutForm";
+import { Elements } from "@stripe/react-stripe-js";
 import {
   Appearance,
   loadStripe,
   StripeElementsOptions,
 } from "@stripe/stripe-js";
-import { Elements } from "@stripe/react-stripe-js";
+import React, { useState, useEffect, ReactElement } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "store";
+import OrderSummary from "@components/OrderSummary";
+import OrderSummaryLayout from "@layout/OrderSummaryLayout";
+import { resetCart } from "../../store/slice/shoppingCartSlice";
 
 type Props = {};
 
@@ -23,20 +24,30 @@ const stripePromise = loadStripe(
 );
 
 const CheckoutPage = (props: Props) => {
-  const [clientSecret, setClientSecret] = useState("");
+  const [clientSecret, setClientSecret] = useState<string>("");
+  const [paymentIntent, setPaymentIntent] = useState<string>(
+    localStorage.getItem("PaymentIntentID") || ""
+  );
   const cartItems = useSelector((state: RootState) => state.shoppingCart.items);
 
-  console.log(cartItems);
-
   useEffect(() => {
-    fetch("/api/create-payment-intent", {
+    console.log("cart page useEffect run");
+    // Create PaymentIntent as soon as the page loads using our local API
+    fetch("/api/stripe-payment-intent", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ items: cartItems }),
+      body: JSON.stringify({
+        items: cartItems,
+        payment_intent_id: paymentIntent,
+      }),
     })
       .then((res) => res.json())
-      .then((data) => setClientSecret(data.clientSecret));
-  }, []);
+      .then((data) => {
+        setClientSecret(data.client_secret);
+        setPaymentIntent(data.id);
+        localStorage.setItem("PaymentIntentID", data.id);
+      });
+  }, [cartItems]);
 
   const appearance: Appearance = {
     theme: "stripe",
@@ -47,29 +58,22 @@ const CheckoutPage = (props: Props) => {
   };
 
   return (
-    <div className="max-w-5xl mx-auto mt-4 lg:mt-6 px-4 lg:px-6">
-      {/* [TODO] Add a go back btn and shop more btn */}
-      <h3>
-        Total:{" "}
-        {cartItems.reduce(function (acc, obj) {
-          return acc + obj.product.price * obj.quantity;
-        }, 0)}
-      </h3>
-      <div className="w-full relative mb-6">
-        {clientSecret && (
-          <Elements options={options} stripe={stripePromise}>
-            <CheckoutForm />
-          </Elements>
-        )}
-      </div>
-    </div>
+    <>
+      {clientSecret && (
+        <Elements options={options} stripe={stripePromise}>
+          <CheckoutForm paymentIntent={paymentIntent} />
+        </Elements>
+      )}
+    </>
   );
 };
 
 CheckoutPage.getLayout = function getLayout(page: ReactElement) {
   return (
     <Layout>
-      <BannerLayout>{page}</BannerLayout>
+      <BannerLayout>
+        <OrderSummaryLayout>{page}</OrderSummaryLayout>
+      </BannerLayout>
     </Layout>
   );
 };

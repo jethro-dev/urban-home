@@ -4,13 +4,26 @@ import {
   LinkAuthenticationElement,
   useStripe,
   useElements,
+  AddressElement,
 } from "@stripe/react-stripe-js";
 import { StripePaymentElementOptions } from "@stripe/stripe-js";
 import { toast } from "react-toastify";
+import { useSession } from "next-auth/react";
+import { DefaultValuesOption } from "@stripe/stripe-js";
+import CheckoutFormUserPanel from "./CheckoutFormUserPanel";
+import { resetCart } from "store/slice/shoppingCartSlice";
+import { SyncLoader } from "react-spinners";
+import { useDispatch } from "react-redux";
 
-export default function CheckoutForm() {
+interface Props {
+  paymentIntent: string;
+}
+
+export default function CheckoutForm({ paymentIntent }: Props) {
   const stripe = useStripe();
   const elements = useElements();
+  const { data: session } = useSession();
+  const dispatch = useDispatch();
 
   const [email, setEmail] = useState<string>("");
   const [message, setMessage] = useState<null | string>(null);
@@ -33,7 +46,7 @@ export default function CheckoutForm() {
       switch (paymentIntent!.status) {
         case "succeeded":
           setMessage("Payment succeeded!");
-
+          localStorage.removeItem("PaymentIntentID");
           break;
         case "processing":
           setMessage("Your payment is processing.");
@@ -45,17 +58,6 @@ export default function CheckoutForm() {
           setMessage("Something went wrong.");
           break;
       }
-
-      toast.success(message, {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
     });
   }, [stripe]);
 
@@ -75,9 +77,9 @@ export default function CheckoutForm() {
       confirmParams: {
         // [FIXME] Make sure to change this to your payment completion page
         return_url: "http://localhost:3000/payment-success",
+        receipt_email: email,
       },
     });
-
     // This point will only be reached if there is an immediate error when
     // confirming the payment. Otherwise, your customer will be redirected to
     // your `return_url`. For some payment methods like iDEAL, your customer will
@@ -94,30 +96,52 @@ export default function CheckoutForm() {
 
   const paymentElementOptions: StripePaymentElementOptions = {
     layout: "tabs",
+    // TODO
+    defaultValues: {
+      billingDetails: {
+        // name: session?.user?.name || undefined,
+        email: session?.user?.email || undefined,
+      },
+    },
   };
+
+  console.log({ email });
 
   return (
     <form
       id="payment-form"
       onSubmit={handleSubmit}
-      className="ring-1 ring-neutral-200 rounded-md shadow-sm p-4"
+      className="ring-1 ring-neutral-200 rounded-md shadow-sm p-4 space-y-4"
     >
+      <CheckoutFormUserPanel />
       <LinkAuthenticationElement
-        id="link-authentication-element"
         onChange={(e: any) => setEmail(e.target.value)}
+      />
+      <AddressElement
+        options={{
+          mode: "shipping",
+          // display: {
+          //   name: "split",
+          // },
+          defaultValues: { name: session?.user?.name },
+        }}
       />
       <PaymentElement id="payment-element" options={paymentElementOptions} />
       <button
         disabled={isLoading || !stripe || !elements}
         id="submit"
-        className="w-full bg-violet-500 text-white mt-4 py-2.5 rounded-md shadow-sm"
+        className="w-full bg-violet-500 text-white py-2.5 rounded-md shadow-sm"
       >
         <span id="button-text">
-          {isLoading ? <div className="spinner" id="spinner"></div> : "Pay now"}
+          {isLoading ? <SyncLoader color="#ffffff" size={22} /> : "Pay now"}
         </span>
       </button>
       {/* Show any error or success messages */}
-      {message && <div id="payment-message">{message}</div>}
+      {message && (
+        <div id="payment-message" className="text-red-500 text-sm">
+          {message}
+        </div>
+      )}
     </form>
   );
 }

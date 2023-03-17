@@ -38,8 +38,6 @@ const LoginForm = ({ toggleLoginForm }: Props) => {
     signIn("email", { email, redirect: false });
   };
 
-  console.log(isMagicLink);
-
   return (
     <form className="w-80">
       {/* close btn */}
