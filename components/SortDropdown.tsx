@@ -91,8 +91,8 @@ const SortDropdown = ({}: Props) => {
       >
         <Menu.Items className="absolute left-0 z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
           <div className="p-2 space-y-2">
-            {menuItem.map((item) => (
-              <Menu.Item>
+            {menuItem.map((item, idx) => (
+              <Menu.Item key={idx}>
                 {({ active }) => (
                   <button
                     className={`${

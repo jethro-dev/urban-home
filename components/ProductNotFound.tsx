@@ -13,7 +13,7 @@ const ProductNotFound = (props: Props) => {
           <hr className="border-neutral-700 my-10 w-[90%]" />
           <Image src={"/images/404.svg"} alt="404" height={300} width={600} />
           <h1 className="mt-10 font-medium text-lg">
-            Oops, sorry. This page can't be found
+            Oops, sorry. This page can&apos;t be found
           </h1>
           <p className="mt-2 font-medium text-base">
             You may go back to products by clicking{" "}

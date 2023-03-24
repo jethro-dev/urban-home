@@ -47,7 +47,10 @@ const ProductCarousel = ({ products }: Props) => {
         // centerMode={true}
       >
         {products.map((product) => (
-          <div className=" rounded-md relative h-[400px] bg-white overflow-hidden">
+          <div
+            key={product.id}
+            className=" rounded-md relative h-[400px] bg-white overflow-hidden"
+          >
             <div className="w-full absolute z-20 bottom-0 p-4 flex justify-between items-center">
               {/* left */}
               <div>

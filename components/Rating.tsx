@@ -10,11 +10,11 @@ const Rating = ({ value, className }: RatingProps) => {
 
   return (
     <div className={`flex${className ? ` ${className}` : ""}`}>
-      {stars.map((star) =>
+      {stars.map((star, idx) =>
         star <= value ? (
-          <AiFillStar className="text-black" />
+          <AiFillStar className="text-black" key={idx} />
         ) : (
-          <AiOutlineStar className="text-gray-400" />
+          <AiOutlineStar className="text-gray-400" key={idx} />
         )
       )}
     </div>

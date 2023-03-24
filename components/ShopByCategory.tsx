@@ -53,7 +53,7 @@ const ShopByCategory = ({ categories }: Props) => {
         centerMode={true}
       >
         {categories.map((category) => (
-          <Link href={`/categories/${category.slug}`}>
+          <Link href={`/categories/${category.slug}`} key={category.id}>
             <div className="h-full relative">
               <Image
                 src={`${category.image}`}

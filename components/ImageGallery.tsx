@@ -27,7 +27,7 @@ const ImageGallery: React.FC<Props> = ({ variants, selectedVariant }) => {
 
       <div className="flex gap-4 flex-wrap">
         {variants.map((variant, index) => (
-          <div className="relative h-[100px] w-[100px]">
+          <div className="relative h-[100px] w-[100px]" key={variant.id}>
             <Image
               key={index}
               src={variant.image}

@@ -147,7 +147,9 @@ const LoginForm = ({ toggleLoginForm }: Props) => {
               </div>
               {/* sign up */}
               <div className="pt-1 text-center text-sm">
-                <span className="text-accent-7">Don't have an account?</span>{" "}
+                <span className="text-accent-7">
+                  Don&apos;t have an account?
+                </span>{" "}
                 <a className="text-accent-9 font-bold hover:underline cursor-pointer">
                   Sign Up
                 </a>

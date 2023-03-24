@@ -81,7 +81,7 @@ const CategoryDropdown = ({ categories }: Props) => {
               )}
             </Menu.Item>
             {categories.map((category) => (
-              <Menu.Item>
+              <Menu.Item key={category.id}>
                 {({ active }) => (
                   <button
                     className={`${

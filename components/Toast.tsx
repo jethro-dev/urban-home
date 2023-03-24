@@ -13,8 +13,9 @@ const Toast = ({ className, position, toastList }: Props) => {
     <div
       className={`ring-2 text-sm fixed mt-20 mr-4 ring-inset ${position} space-y-2.5`}
     >
-      {toastList.map((toast) => (
+      {toastList.map((toast, idx) => (
         <div
+          key={idx}
           className={`ring-2 flex items-center gap-2 p-2 rounded-md ${position}`}
           style={{ backgroundColor: toast.backgroundColor }}
         >

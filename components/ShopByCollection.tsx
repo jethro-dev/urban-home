@@ -39,6 +39,7 @@ const ShopByCollection = (props: Props) => {
             className={`shadow-md overflow-hidden relative hover:scale-[1.01] transition-all ${
               i == 0 ? "md:row-span-2" : ""
             }`}
+            key={i}
           >
             <Image
               src={`/images/${item.img}`}

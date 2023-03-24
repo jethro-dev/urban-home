@@ -36,8 +36,8 @@ const CustomAccordion = (props: Props) => {
         <Accordion.Title>Features</Accordion.Title>
         <Accordion.Content>
           <ul className="list-disc pl-5 text-gray-500 dark:text-gray-400">
-            {productDetails.features.map((feature: any) => (
-              <li>
+            {productDetails.features.map((feature: any, index: number) => (
+              <li key={index}>
                 <span>{feature.description}</span>
               </li>
             ))}

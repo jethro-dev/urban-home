@@ -60,7 +60,7 @@ const CartModal = ({ toggleCart }: Props) => {
         <div className="p-5 flex flex-col gap-4">
           <div className="p-5 ring-1 ring-neutral-800 px-2 py-2 rounded">
             {cartItems.map((cartItem) => (
-              <div>
+              <div key={cartItem.id}>
                 <h3>{cartItem.id}</h3>
                 <h3>{cartItem.product.name}</h3>
                 <h3>{cartItem.quantity}</h3>
