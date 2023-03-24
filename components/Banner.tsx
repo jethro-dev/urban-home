@@ -15,8 +15,8 @@ const Banner = ({ banners }: Props) => {
         indicators={false}
         className="[&>*]:rounded-t-none"
       >
-        {banners.map((banner) => (
-          <div className="h-full">
+        {banners.map((banner, idx) => (
+          <div className="h-full" key={idx}>
             <Image
               src={`/images/${banner.img}`}
               alt="..."
