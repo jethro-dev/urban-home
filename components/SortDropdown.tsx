@@ -42,32 +42,32 @@ const menuItem = [
 
 const SortDropdown = ({}: Props) => {
   const router = useRouter();
-  const oldQuery = router.query;
+  console.log({ router });
+
   const handleSort = (sort: string) => {
-    if (sort === "" || undefined || null) {
-      delete oldQuery["sort"];
-      router.push(
-        {
-          pathname: "/products",
-          query: { ...oldQuery },
-        },
-        undefined,
-        {
-          shallow: true,
-        }
-      );
-    } else {
-      router.push(
-        {
-          pathname: "/products",
-          query: { ...oldQuery, sort },
-        },
-        undefined,
-        {
-          shallow: true,
-        }
-      );
+    const oldQuery = router.query;
+    let query: { sort?: string; categories?: string; q?: string } = {};
+    console.log({ router });
+
+    query = {
+      ...oldQuery,
+      sort: sort,
+    };
+
+    if (!sort) {
+      delete query["sort"];
     }
+
+    router.push(
+      {
+        pathname: "/products",
+        query,
+      },
+      undefined,
+      {
+        shallow: true,
+      }
+    );
   };
   return (
     <Menu as="div" className="relative inline-block text-left">

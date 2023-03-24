@@ -20,20 +20,6 @@ type Props = {
 
 const sortProducts = (sort: string, products: Product[]): Product[] => {
   switch (sort) {
-    case "trending-desc":
-      products.sort((a, b) => {
-        return (
-          new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf()
-        );
-      });
-      break;
-    case "latest-desc":
-      products.sort((a, b) => {
-        return (
-          new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf()
-        );
-      });
-      break;
     case "PRICE_LOW_TO_HIGH":
       products.sort((a, b) => {
         return a.price - b.price;
@@ -59,6 +45,11 @@ const sortProducts = (sort: string, products: Product[]): Product[] => {
         return (
           new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
         );
+      });
+      break;
+    case "BEST_MATCH":
+      products.sort((a, b) => {
+        return a.name.localeCompare(b.name);
       });
       break;
     default:
@@ -93,26 +84,37 @@ const filterProducts = (filter: string, products: Product[]) => {
   });
 };
 
+const queryProducts = (q: string, products: Product[]) => {
+  return products.filter(
+    (product) =>
+      product.name.toLowerCase().includes(q.toLowerCase()) ||
+      product.category.some((category) =>
+        category.name.toLowerCase().includes(q.toLowerCase())
+      )
+  );
+};
+
 const ProductPage = ({ products, categories }: Props) => {
   const router = useRouter();
-  const { sort, filter } = router.query;
-  console.log(sort);
-  console.log({ filter });
+  const { q, sort, filter } = router.query;
 
-  products = filterProducts(filter as string, products);
-  products = sortProducts((sort as string) || "NAME_ASC", products);
+  if (filter) products = filterProducts(filter as string, products);
+
+  if (sort) {
+    products = sortProducts(sort as string, products);
+  } else {
+    sortProducts("BEST_MATCH", products);
+  }
+
+  if (q) products = queryProducts(q as string, products);
 
   console.log(products);
   return (
     <div className="bg-white divide-y py-4 md:py-6 lg:py-8">
       {/* upper */}
       <div className="pb-4 md:pb-6 lg:pb-8 space-x-3">
-        {/* [FIXME] Dropdown components give useReducer error on reload */}
         <SortDropdown />
         <CategoryDropdown categories={categories} />
-        {/* <Dropdown title="Color" />
-    <Dropdown title="Category" />
-    <Dropdown title="Collection" /> */}
       </div>
       {/* lower */}
       <div className="pt-4 md:pt-6 lg:pt-8">

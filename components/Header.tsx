@@ -1,5 +1,11 @@
 import Link from "next/link";
-import React, { Dispatch, SetStateAction } from "react";
+import React, {
+  ChangeEvent,
+  Dispatch,
+  FormEvent,
+  SetStateAction,
+  useState,
+} from "react";
 import { FiShoppingBag } from "react-icons/fi";
 import { HiMenuAlt3 } from "react-icons/hi";
 import { AiOutlineSearch, AiOutlineUser } from "react-icons/ai";
@@ -18,6 +24,15 @@ const Header = ({ toggleLoginForm, toggleCart }: Props) => {
   const { data: session } = useSession();
   const cartItems = useSelector((state: RootState) => state.shoppingCart.items);
   const router = useRouter();
+  const [searchString, setSearchString] = useState<string>("");
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    router.push({
+      pathname: "/products",
+      query: { q: searchString },
+    });
+  };
 
   return (
     <header className="fixed top-0 left-0 right-0 w-full max-w-7xl mx-auto mt-2 z-[40] px-4 lg:px-6">
@@ -43,21 +58,31 @@ const Header = ({ toggleLoginForm, toggleCart }: Props) => {
             </nav>
           </div>
           {/* middle */}
-          <div className="justify-center flex-1 lg:flex relative hidden">
+          <form
+            onSubmit={(e) => handleSubmit(e)}
+            className="justify-center flex-1 lg:flex relative hidden"
+          >
             <div className="w-full">
               <label className="hidden" htmlFor="search">
                 Search
               </label>
               <input
                 id="search"
-                className="w-full h-full bg-transparent placeholder:text-neutral-400 pr-10 py-2 pl-3 ring-1 ring-neutral-300 focus:ring-neutral-400 focus:outline-none text-sm rounded"
+                className="w-full h-full bg-transparent text-black placeholder:text-neutral-400 ring-1 ring-neutral-300 focus:ring-neutral-400 focus:outline-none text-sm rounded px-2"
                 placeholder="Search for products..."
+                value={searchString}
+                onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                  setSearchString(e.target.value.toLowerCase())
+                }
               />
-              <div className="grid place-items-center absolute right-0 bottom-0 top-0 mr-3">
+              <button
+                type="submit"
+                className="grid place-items-center absolute right-0 bottom-0 top-0 px-2"
+              >
                 <AiOutlineSearch size={24} />
-              </div>
+              </button>
             </div>
-          </div>
+          </form>
           {/* right */}
           <div className="flex items-center justify-end flex-1">
             <nav>
