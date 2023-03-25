@@ -76,7 +76,10 @@ export default function CheckoutForm({ paymentIntent }: Props) {
       elements,
       confirmParams: {
         // [FIXME] Make sure to change this to your payment completion page
-        return_url: "http://localhost:3000/payment-success",
+        return_url:
+          process.env.NODE_ENV === "production"
+            ? "https://urban-home.vercel.app/payment-success"
+            : "http://localhost:3000/payment-success",
         receipt_email: email,
       },
     });
