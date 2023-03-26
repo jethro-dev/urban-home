@@ -52,9 +52,9 @@ const Header = ({ toggleLoginForm, toggleCart }: Props) => {
               /> */}
             </Link>
             <nav className="lg:flex gap-6 ml-6 hidden items-center px-4 [&>*]:text-sm [&>*]:font-normal">
-              <Link href="/products/featured">About</Link>
-              <Link href="/products">Furniture</Link>
-              <Link href="/products/new-arrivals">New Arrivals</Link>
+              <Link href="/about">About</Link>
+              <Link href="/products">Products</Link>
+              <Link href="/products?sort=LATEST">New Arrivals</Link>
             </nav>
           </div>
           {/* middle */}
@@ -148,19 +148,26 @@ const Header = ({ toggleLoginForm, toggleCart }: Props) => {
         </div>
         {/* lower (only show in mobile) */}
         <div className="justify-center flex-1 lg:hidden relative">
-          <div className="w-full">
+          <form className="w-full" onSubmit={handleSubmit}>
             <label className="hidden" htmlFor="search">
               Search
             </label>
             <input
               id="search"
-              className="w-full h-full bg-transparent text-neutral-200 placeholder:text-neutral-700 pr-10 py-2 pl-3 ring-1 focus:ring-2 ring-neutral-800 focus:ring-neutral-700 focus:outline-none text-sm"
+              className="w-full h-full bg-transparent text-black placeholder:text-neutral-400 ring-1 ring-neutral-300 focus:ring-neutral-400 focus:outline-none text-sm rounded px-2 py-2"
+              value={searchString}
+              onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                setSearchString(e.target.value.toLowerCase())
+              }
               placeholder="Search for products..."
             />
-            <div className="grid place-items-center absolute right-0 bottom-0 top-0 mr-3">
+            <button
+              type="submit"
+              className="grid place-items-center absolute right-0 bottom-0 top-0 mr-3"
+            >
               <AiOutlineSearch size={24} />
-            </div>
-          </div>
+            </button>
+          </form>
         </div>
       </div>
     </header>
