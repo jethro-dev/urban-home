@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/router";
 import BreadcrumbComponent from "@components/Breadcrumb";
 import Image from "next/image";
+import Footer from "@components/Footer";
 
 type Props = {
   children: React.ReactNode;
@@ -17,6 +18,7 @@ const BannerLayout = ({ children }: Props) => {
 
         {children}
       </div>
+      <Footer />
     </div>
   );
 };

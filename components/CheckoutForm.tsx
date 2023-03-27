@@ -6,7 +6,11 @@ import {
   useElements,
   AddressElement,
 } from "@stripe/react-stripe-js";
-import { StripePaymentElementOptions } from "@stripe/stripe-js";
+import {
+  PaymentIntent,
+  StripeError,
+  StripePaymentElementOptions,
+} from "@stripe/stripe-js";
 import { toast } from "react-toastify";
 import { useSession } from "next-auth/react";
 import { DefaultValuesOption } from "@stripe/stripe-js";
@@ -133,10 +137,10 @@ export default function CheckoutForm({ paymentIntent }: Props) {
       <button
         disabled={isLoading || !stripe || !elements}
         id="submit"
-        className="w-full bg-violet-500 text-white py-2.5 rounded-md shadow-sm"
+        className="w-full bg-emerald-800 text-white py-2.5 rounded-md shadow-sm"
       >
         <span id="button-text">
-          {isLoading ? <SyncLoader color="#ffffff" size={22} /> : "Pay now"}
+          {isLoading ? <SyncLoader color="#ffffff" size={14} /> : "Pay now"}
         </span>
       </button>
       {/* Show any error or success messages */}

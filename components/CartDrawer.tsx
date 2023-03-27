@@ -83,7 +83,7 @@ const CartDrawer = ({ isOpen, toggleCart, title }: Props) => {
           <Link
             href={`/cart`}
             onClick={toggleCart as React.MouseEventHandler<HTMLAnchorElement>}
-            className="bg-red-800 grid place-items-center text-white w-full rounded-md"
+            className="bg-emerald-800 grid place-items-center text-white w-full rounded-md"
           >
             Go to cart
           </Link>

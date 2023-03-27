@@ -94,7 +94,7 @@ const OrderSummary = (props: Props) => {
       {router.pathname === "/cart" && (
         <Link
           href={`/checkout`}
-          className="bg-green-600 text-white py-2 px-4 rounded w-full inline-block text-center"
+          className="bg-emerald-800 text-white py-2 px-4 rounded w-full inline-block text-center"
         >
           Checkout
         </Link>

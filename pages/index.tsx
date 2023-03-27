@@ -17,6 +17,7 @@ import ShopByCollection from "@components/ShopByCollection";
 import { Category, Collection, Product } from "@prisma/client";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
+import Footer from "@components/Footer";
 
 type Props = {
   categories: Category[];
@@ -63,6 +64,7 @@ export default function Home({ categories, collection }: Props) {
           {/* <ShopByCollection /> */}
         </div>
       </div>
+      <Footer/>
     </>
   );
 }

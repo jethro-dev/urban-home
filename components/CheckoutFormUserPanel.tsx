@@ -11,7 +11,7 @@ const CheckoutFormUserPanel = ({}: Props) => {
     <div>
       {" "}
       {session ? (
-        <div className=" bg-green-100 px-3 py-2.5 rounded-md shadow-sm">
+        <div className=" bg-emerald-200 px-3 py-2.5 rounded-md shadow-sm">
           <h3 className="text-sm mb-2 font-medium">Check out as</h3>
           <div>
             {/* left */}
