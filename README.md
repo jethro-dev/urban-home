@@ -30,7 +30,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/jethro-dev/urban-home">
-    <img src="public/image/file.svg" alt="Logo" width="80" height="80">
+    <img src="public/images/logo.png" alt="Logo" width="80" height="80">
   </a>
 
 <h3 align="center">Urban Home</h3>
@@ -74,7 +74,7 @@
 
 ## About The Project
 
-[![Ghost Lifestyle e-commerce Screen Shot][product-screenshot]](https://jethroau.com/)
+[![Urban Home Screenshot][product-screenshot]](https://urban-home.vercel.app)
 Urban home is a full-stack e-commerce application, built with `Next.js`, `TypeScript`,`Prisma`,`TailwindCSS`,`Supabase`, and more.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -144,7 +144,7 @@ Project Link: [https://github.com/jethro-dev/urban-home](https://github.com/jeth
 [license-url]: https://github.com/jethro-dev/urban-home/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/galongau/
-[product-screenshot]: public/image/screenshot.png
+[product-screenshot]: public/images/screenshot.png
 [next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
 [next-url]: https://nextjs.org/
 [react.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
