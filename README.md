@@ -75,7 +75,7 @@
 ## About The Project
 
 [![Urban Home Screenshot][product-screenshot]](https://urban-home.vercel.app)
-Urban home is a full-stack e-commerce application, built with `Next.js`, `TypeScript`,`Prisma`,`TailwindCSS`,`Supabase`, and more.
+Urban home is a full-stack e-commerce application, built with `Next.js`, `TypeScript`,`Prisma`,`TailwindCSS`,`Supabase`,`PostgreSQL`, and more.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
