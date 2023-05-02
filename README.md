@@ -87,6 +87,7 @@ Urban home is a full-stack e-commerce application, built with `Next.js`, `TypeSc
 - [![TailwindCSS][tailwindcss.com]][tailwindcss-url]
 - [![Prisma][prisma.io]][prisma-url]
 - [![Supabase][supabase.com]][supabase-url]
+- [![Postgres][postgres.com]][postgres-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -176,3 +177,5 @@ Project Link: [https://github.com/jethro-dev/urban-home](https://github.com/jeth
 [prisma.io]: https://img.shields.io/badge/Prisma-3982CE?style=for-the-badge&logo=Prisma&logoColor=white
 [supabase-url]: https://supabase.com/
 [supabase.com]: https://img.shields.io/badge/Supabase-181818?style=for-the-badge&logo=supabase&logoColor=white
+[postgres-url]: https://www.postgresql.org/
+[postgres.com]: https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white
